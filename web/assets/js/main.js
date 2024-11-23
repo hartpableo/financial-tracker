@@ -1,4 +1,10 @@
 (($) => {
+  /**
+   * Note:
+   *  Must clean this messy code.
+   *  This code is just for demonstration purposes (POC).
+   *  Maybe not rely on indexes when implementing this script's intended behavior for more flexibility????
+   */
   const $addItemButton = $('.js-add-item');
   $addItemButton.on('click', (e) => {
     const $this = $(e.currentTarget);
