@@ -9,6 +9,11 @@ class Router
       'controller' => 'HomeController',
       'method' => 'index',
       'request' => 'GET'
+    ],
+    '/add-item' => [
+      'controller' => 'FinancialTrackersController',
+      'method' => 'addItem',
+      'request' => 'POST'
     ]
   ];
 
@@ -29,5 +34,13 @@ class Router
     $controller = new $controllerName();
     $method = $route['method'];
     $controller->$method();
+  }
+
+  public function route(string $path)
+  {
+    if (array_key_exists($path, $this->routes)) {
+      return $path;
+    }
+    throw new \Exception('Route not found');
   }
 }
