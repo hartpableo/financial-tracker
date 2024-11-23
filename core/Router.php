@@ -11,7 +11,7 @@ class Router
       'request' => 'GET'
     ],
     '/add-item' => [
-      'controller' => 'FinancialTrackersController',
+      'controller' => 'FinancialTrackerController',
       'method' => 'addItem',
       'request' => 'POST'
     ]

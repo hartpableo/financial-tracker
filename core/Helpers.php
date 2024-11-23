@@ -43,6 +43,12 @@ class Helpers
     $this->js[] = $jsHandle;
   }
 
+  public function redirect(string $location)
+  {
+    header('Location: ' . $location);
+    exit;
+  }
+
   public function renderJs(bool $echo = false): string
   {
     $this->addJs($this->baseUrl('assets/js/main.js'));

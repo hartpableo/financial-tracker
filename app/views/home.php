@@ -11,6 +11,7 @@ $helper->templatePart('header', ['title' => $args['title']]);
 
         <form action="<?php echo $router->route('/add-item'); ?>" method="post">
             <h2>Add assets</h2>
+            <input type="hidden" name="type" value="asset">
             <div class="js-form-repeater-fields">
                 <div class="mb-3">
                     <input type="text" aria-label="Asset Item 1" class="form-control" id="asset-item-1" name="assets[]" placeholder="Asset 1">
