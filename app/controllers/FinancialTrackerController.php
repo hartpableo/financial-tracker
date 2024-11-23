@@ -22,6 +22,11 @@ class FinancialTrackerController
     $item_type = $_POST['type'];
     $existing_items = $this->getItems();
 
+    /**
+     * Note:
+     *  Simplify/refactor this logic to make it more readable and maintainable.
+     *  Fix the handling of items when multiples actions are performed before submitting the form.
+     */
     if (!empty($assets) && !empty($item_type)) {
       foreach ($assets as $asset) {
         if ($this->itemAlreadyExists($asset['title'])) {
