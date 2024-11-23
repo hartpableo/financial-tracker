@@ -1,0 +1,6 @@
+.ddev
+node_modules
+dist/
+build/
+.idea/
+.htaccess
