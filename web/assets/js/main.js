@@ -30,4 +30,10 @@
                 <input aria-label="Amount" type="text" placeholder="Amount" name="assets[${itemIndex}][amount]">
             </div>`;
   }
+
+
 })(jQuery)
+
+function removeItem(index) {
+  jQuery(`[data-item="${index}"]`).closest('[data-slot="field-wrapper"]').remove();
+}

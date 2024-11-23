@@ -20,11 +20,19 @@ class FinancialTrackerController
   {
     $assets = $_POST['assets'] ?? [];
     $item_type = $_POST['type'];
+    $existing_items = $this->getItems();
 
     if (!empty($assets) && !empty($item_type)) {
       foreach ($assets as $asset) {
-        dump($asset);
         if ($this->itemAlreadyExists($asset['title'])) {
+          // check if the amount has changed and update if so
+          $item = $this->db->query('SELECT * FROM financial_items WHERE title = :title', ['title' => $asset['title']])->find();
+          if ($item['amount'] !== $asset['amount'] && $item['type'] === $item_type) {
+            $this->db->query('UPDATE financial_items SET amount = :amount WHERE title = :title', [
+              'title' => $asset['title'],
+              'amount' => (int)$asset['amount'],
+            ]);
+          }
           continue;
         }
         $this->db->query('INSERT INTO financial_items (title, type, amount) VALUES (:title, :type, :amount)', [
@@ -32,6 +40,19 @@ class FinancialTrackerController
           'type' => $item_type,
           'amount' => (int)$asset['amount'],
         ]);
+      }
+    }
+
+    // Remove items that are not in the form anymore
+    if (!empty($existing_items)) {
+      foreach ($existing_items as $existing_item) {
+        $item = array_filter($assets, function ($asset) use ($existing_item) {
+          return $asset['title'] === $existing_item['title'];
+        });
+
+        if (empty($item)) {
+          $this->db->query('DELETE FROM financial_items WHERE id = :id', ['id' => $existing_item['id']]);
+        }
       }
     }
 
