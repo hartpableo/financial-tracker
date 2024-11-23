@@ -15,6 +15,6 @@ class HomeController
 
   public function index(): void
   {
-    $this->helpers->view('home', ['test' => 'this is an argument']);
+    $this->helpers->view('home', ['title' => 'Home']);
   }
 }

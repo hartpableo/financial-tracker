@@ -1,3 +1,9 @@
 <?php
+$helper = new core\Helpers();
+$helper->templatePart('header', ['title' => $args['title']]);
+?>
 
-echo 'hello from home.php!' . $args['test'];
+<h1>Home</h1>
+
+<?php
+$helper->templatePart('footer');

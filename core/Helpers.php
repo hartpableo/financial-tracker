@@ -28,4 +28,10 @@ class Helpers
     extract($args);
     require_once $this->basePath('app/views/' . $viewHandle . '.php');
   }
+
+  public function templatePart(string $templatePartHandle, array $args = []): void
+  {
+    extract($args);
+    require_once $this->basePath('app/views/template-parts/' . $templatePartHandle . '.php');
+  }
 }
