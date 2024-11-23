@@ -22,4 +22,10 @@ class Helpers
   {
     return !empty($pathToFile) ? $this->baseUrl . DIRECTORY_SEPARATOR . $pathToFile : $this->baseUrl;
   }
+
+  public function view(string $viewHandle, array $args = []): void
+  {
+    extract($args);
+    require_once $this->basePath('app/views/' . $viewHandle . '.php');
+  }
 }
