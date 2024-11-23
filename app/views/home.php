@@ -16,27 +16,31 @@ $financial_items = $finalcial_tracker->getItems();
                 <input type="hidden" name="type" value="asset">
                 <div class="js-form-repeater-fields">
                   <?php if (!empty($financial_items)) : ?>
-                    <?php foreach ($financial_items as $item) : ?>
-                          <div class="mb-3">
+                    <?php foreach ($financial_items as $key => $item) : ?>
+                          <div class="mb-3 d-flex justify-content-start align-items-stretch">
                               <input
                               type="text"
                               aria-label="Asset Item <?php echo $item['id']; ?>"
                               class="form-control"
-                              id="asset-item-<?php echo $item['id']; ?>" name="assets[]"
+                              id="asset-item-<?php echo $item['id']; ?>"
+                              name="assets[<?php echo $key; ?>][title]"
                               placeholder="Asset <?php echo $item['id']; ?>"
                               value="<?php echo $item['title']; ?>"
                               >
+                              <input aria-label="Amount" type="text" placeholder="Amount" name="assets[<?php echo $key; ?>][amount]" value="<?php echo $item['amount']; ?>">
                           </div>
                     <?php endforeach; ?>
                   <?php else : ?>
-                      <div class="mb-3">
+                      <div class="mb-3 d-flex justify-content-start align-items-stretch">
                           <input
                           type="text"
                           aria-label="Asset Item 1"
                           class="form-control"
-                          id="asset-item-1" name="assets[]"
+                          id="asset-item-1"
+                          name="assets[1][title]"
                           placeholder="Asset 1"
                           >
+                          <input aria-label="Amount" type="text" placeholder="Amount" name="assets[1][amount]">
                       </div>
                   <?php endif; ?>
                 </div>

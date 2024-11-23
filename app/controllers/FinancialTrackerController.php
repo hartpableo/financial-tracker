@@ -20,22 +20,32 @@ class FinancialTrackerController
   {
     $assets = $_POST['assets'] ?? [];
     $item_type = $_POST['type'];
-    $assets = array_filter((array) $assets);
-    if (!empty($assets) && !empty($_POST['type'])) {
-      $saved_items = $this->db->query('SELECT title FROM financial_items WHERE type = :type', ['type' => $item_type])->findAll();
-      $assets = array_diff($assets, array_column($saved_items, 'title'));
+
+    if (!empty($assets) && !empty($item_type)) {
       foreach ($assets as $asset) {
-        $this->db->query('INSERT INTO financial_items (title, type) VALUES (:title, :type)', [
-          'title' => $asset,
-          'type' => $item_type
+        dump($asset);
+        if ($this->itemAlreadyExists($asset['title'])) {
+          continue;
+        }
+        $this->db->query('INSERT INTO financial_items (title, type, amount) VALUES (:title, :type, :amount)', [
+          'title' => $asset['title'],
+          'type' => $item_type,
+          'amount' => (int)$asset['amount'],
         ]);
       }
     }
+
     $this->helper->redirect($this->helper->baseUrl());
   }
 
   public function getItems(): array
   {
     return $this->db->query('SELECT * FROM financial_items')->findAll();
+  }
+
+  private function itemAlreadyExists($title): bool
+  {
+    $item = $this->db->query('SELECT * FROM financial_items WHERE title = :title', ['title' => $title])->find();
+    return !empty($item);
   }
 }

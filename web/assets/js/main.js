@@ -18,15 +18,16 @@
 
   function createInputComponent(itemsLength) {
     const itemIndex = itemsLength + 1;
-    return `<div class="mb-3">
+    return `<div class="mb-3 d-flex justify-content-start align-items-stretch">
                 <input
                   type="text" 
-                  name="assets[]"
+                  name="assets[${itemIndex}][title]"
                   id="asset-item-${itemIndex}" 
                   class="form-control" 
                   aria-label="Asset Item ${itemIndex}"
                   placeholder="Asset ${itemIndex}"
                 >
+                <input aria-label="Amount" type="text" placeholder="Amount" name="assets[${itemIndex}][amount]">
             </div>`;
   }
 })(jQuery)
