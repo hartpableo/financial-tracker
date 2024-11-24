@@ -29,7 +29,7 @@ $financial_items = $finalcial_tracker->getItems();
                               data-item="<?php echo $key; ?>"
                               >
                               <input aria-label="Amount" type="text" placeholder="Amount" name="assets[<?php echo $key; ?>][amount]" value="<?php echo $item['amount']; ?>">
-                              <button type="button" onclick="removeItem(<?php echo $key; ?>)" aria-label="Remove item <?php echo $key; ?>" class="fw-bold text-danger">X</button>
+                              <button type="button" aria-label="Remove item <?php echo $key; ?>" class="js-remove-item fw-bold text-danger">X</button>
                           </div>
                     <?php endforeach; ?>
                   <?php else : ?>
@@ -44,7 +44,7 @@ $financial_items = $finalcial_tracker->getItems();
                           data-item="1"
                           >
                           <input aria-label="Amount" type="text" placeholder="Amount" name="assets[1][amount]">
-                          <button type="button" onclick="removeItem(1)" aria-label="Remove item 1" class="fw-bold text-danger">X</button>
+                          <button type="button" aria-label="Remove item 1" class="fw-bold text-danger">X</button>
                       </div>
                   <?php endif; ?>
                 </div>
