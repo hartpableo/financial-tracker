@@ -9,6 +9,7 @@ class Helpers
   private array $js = [
     'https://code.jquery.com/jquery-3.7.1.slim.min.js',
   ];
+  private array $css = [];
 
   public function __construct()
   {
@@ -64,5 +65,27 @@ class Helpers
     }
 
     return $js;
+  }
+
+  public function addCss(string $cssHandle): void
+  {
+    $this->css[] = $cssHandle;
+  }
+
+  public function renderCss(bool $echo = false): string
+  {
+    $this->addCss($this->baseUrl('assets/css/style.css'));
+
+    $css = '';
+    foreach ($this->css as $cssHandle) {
+      $css .= '<link href="' . $cssHandle . '" rel="stylesheet">';
+    }
+
+    if ($echo) {
+      echo $css;
+      return '';
+    }
+
+    return $css;
   }
 }
