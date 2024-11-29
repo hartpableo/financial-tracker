@@ -14,7 +14,7 @@ $helper->templatePart('header', ['title' => $args['title']]);
                   <?php $helper->templatePart('forms/assets'); ?>
                 </div>
                 <div class="col-12 col-md-6">
-<!--                  --><?php //$helper->templatePart('forms/assets'); ?>
+                  <?php $helper->templatePart('forms/liabilities'); ?>
                 </div>
             </div>
         </div>

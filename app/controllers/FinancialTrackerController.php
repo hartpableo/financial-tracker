@@ -18,13 +18,15 @@ class FinancialTrackerController
 
   public function addItem(): void
   {
-    $items = $_POST['assets'] ?? [];
+    $assets = $_POST['assets'] ?? [];
+    $liabilities = $_POST['liabilities'] ?? [];
     $item_type = $_POST['type'];
-    $existing_items = $this->getAllItems($item_type);
+    $items = $item_type === 'asset' ? $assets : $liabilities;
+    $existingitemsOfCurrentType = $this->getAllItems($item_type);
 
     if (!empty($items)) {
       // Reset list of items
-      if (!empty($existing_items)) {
+      if (!empty($existingitemsOfCurrentType)) {
         $this->db->query('DELETE FROM financial_items WHERE type = :type', ['type' => $item_type]);
       }
 

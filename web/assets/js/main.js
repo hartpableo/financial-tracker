@@ -1,41 +1,48 @@
 (() => {
-  const formFieldsContainer = document.querySelector('.js-form-repeater-fields');
+  const formFieldsContainer = document.querySelectorAll('.js-form-repeater-fields');
+
+  if (!formFieldsContainer) {
+    return;
+  }
+
+  formFieldsContainer.forEach((container) => {
+    initAddItemFeature(container);
+  })
 
   function initAddItemFeature(target) {
     const addItemButton = target.closest('form').querySelector('.js-add-item');
-    addItemButton.addEventListener('click', handleAddItem);
+    const itemType = addItemButton.dataset.itemType;
+    addItemButton.addEventListener('click', handleAddItem(target, itemType));
   }
 
-  initAddItemFeature(formFieldsContainer);
-
-  function handleAddItem() {
-    const itemsCount = getItemsCount();
-    appendNewInput(itemsCount);
+  function handleAddItem(container, itemType) {
+    const itemsCount = getItemsCount(container);
+    appendNewInput(itemsCount, itemType, container);
   }
 
   // Function to count items dynamically
-  function getItemsCount() {
-    return formFieldsContainer.querySelectorAll('[data-slot="field-wrapper"]').length;
+  function getItemsCount(container) {
+    return container.querySelectorAll('[data-slot="field-wrapper"]').length;
   }
 
   // Append new input component
-  function appendNewInput(itemsCount) {
-    const newInputComponent = createInputComponent(itemsCount + 1);
-    formFieldsContainer.insertAdjacentHTML('beforeend', newInputComponent);
+  function appendNewInput(itemsCount, itemType, container) {
+    const newInputComponent = createInputComponent(itemsCount + 1, itemType);
+    container.insertAdjacentHTML('beforeend', newInputComponent);
   }
 
   // Create input component HTML
-  function createInputComponent(index) {
+  function createInputComponent(index, itemType) {
+    const type = itemType === 'asset' ? 'assets' : 'liabilities';
     return `<div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">
                 <input
                   type="text" 
-                  name="assets[${index}][title]"
-                  id="asset-item-${index}" 
+                  name="${type}[${index}][title]"
+                  id="${itemType}-item-${index}"
                   class="form-control" 
-                  aria-label="Asset Item ${index}"
-                  placeholder="Asset ${index}"
+                  aria-label="${itemType.charAt(0).toUpperCase() + itemType.slice(1)} Item ${index}"
                 >
-                <input aria-label="Amount" type="text" placeholder="Amount" name="assets[${index}][amount]">
+                <input aria-label="Amount" type="text" placeholder="Amount" name="${type}[${index}][amount]">
                 <button type="button" aria-label="Remove item ${index}" class="js-remove-item fw-bold text-danger">X</button>
             </div>`;
   }
@@ -60,6 +67,8 @@
     });
   });
 
-  observer.observe(formFieldsContainer, {childList: true});
+  formFieldsContainer.forEach((container) => {
+    observer.observe(container, { childList: true });
+  })
 
 })();
