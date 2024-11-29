@@ -1,4 +1,5 @@
 <?php
+$helper = new \core\Helpers();
 $router = new core\Router();
 $finalcial_tracker = new app\controllers\FinancialTrackerController();
 $assets = $finalcial_tracker->getAllAssets();

@@ -18,21 +18,21 @@ class FinancialTrackerController
 
   public function addItem(): void
   {
-    $assets = $_POST['assets'] ?? [];
+    $items = $_POST['assets'] ?? [];
     $item_type = $_POST['type'];
     $existing_items = $this->getAllItems($item_type);
 
-    if (!empty($assets)) {
+    if (!empty($items)) {
       // Reset list of items
-      foreach ($existing_items as $key => $item) {
-        $this->db->query('DELETE FROM financial_items WHERE id = :id', ['id' => $item['id']]);
+      if (!empty($existing_items)) {
+        $this->db->query('DELETE FROM financial_items WHERE type = :type', ['type' => $item_type]);
       }
 
-      foreach ($assets as $asset) {
-        $title = $asset['title'];
-        $amount = (!empty($asset['amount']) && is_int($asset['amount'])) ? $asset['amount'] : 0;
+      foreach ($items as $item) {
+        $title = $item['title'];
+        $amount = (!empty($item['amount']) && is_numeric($item['amount'])) ? (int)$item['amount'] : 0;
 
-        if (!empty($title)) {
+        if (!empty($title) && !empty($amount)) {
           $this->db->query('INSERT INTO financial_items (title, amount, type) VALUES (:title, :amount, :type)', [
             'title' => $title,
             'amount' => $amount,
