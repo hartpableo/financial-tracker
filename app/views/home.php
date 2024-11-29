@@ -3,7 +3,8 @@ $helper = new core\Helpers();
 $router = new core\Router();
 $finalcial_tracker = new app\controllers\FinancialTrackerController();
 $helper->templatePart('header', ['title' => $args['title']]);
-$financial_items = $finalcial_tracker->getItems();
+$assets = $finalcial_tracker->getAllAssets();
+$liabilities = $finalcial_tracker->getAllLiabilities();
 ?>
 
     <section>
@@ -15,8 +16,8 @@ $financial_items = $finalcial_tracker->getItems();
                 <h2>Add assets</h2>
                 <input type="hidden" name="type" value="asset">
                 <div class="js-form-repeater-fields">
-                  <?php if (!empty($financial_items)) : ?>
-                    <?php foreach ($financial_items as $key => $item) : ?>
+                  <?php if (!empty($assets)) : ?>
+                    <?php foreach ($assets as $key => $item) : ?>
                           <div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">
                               <input
                               type="text"
