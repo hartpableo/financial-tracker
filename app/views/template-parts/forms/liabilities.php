@@ -5,10 +5,10 @@ $finalcial_tracker = new app\controllers\FinancialTrackerController();
 $liabilities = $finalcial_tracker->getAllLiabilities();
 ?>
 
-<form action="<?php echo $router->route('add-item'); ?>" method="post">
+<form action="<?php echo $router->route('add-item'); ?>" method="post" data-slot="main-form">
   <h2>Liabilities</h2>
   <input type="hidden" name="type" value="liability">
-  <div class="js-form-repeater-fields">
+  <div data-slot="repeater-fields">
     <?php if (!empty($liabilities)) : ?>
       <?php foreach ($liabilities as $key => $item) : ?>
         <div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">

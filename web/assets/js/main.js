@@ -1,5 +1,5 @@
 (() => {
-  const formFieldsContainer = document.querySelectorAll('.js-form-repeater-fields');
+  const formFieldsContainer = document.querySelectorAll('[data-slot="main-form"]');
 
   if (!formFieldsContainer) {
     return;
@@ -10,14 +10,18 @@
   })
 
   function initAddItemFeature(target) {
-    const addItemButton = target.closest('form').querySelector('.js-add-item');
+    const addItemButton = target.querySelector('.js-add-item');
     const itemType = addItemButton.dataset.itemType;
-    addItemButton.addEventListener('click', handleAddItem(target, itemType));
+    addItemButton.addEventListener('click', () => handleAddItem(target, itemType));
   }
 
   function handleAddItem(container, itemType) {
     const itemsCount = getItemsCount(container);
-    appendNewInput(itemsCount, itemType, container);
+    appendNewInput(
+      itemsCount,
+      itemType,
+      container.querySelector('[data-slot="repeater-fields"]')
+    );
   }
 
   // Function to count items dynamically

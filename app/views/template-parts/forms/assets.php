@@ -5,10 +5,10 @@ $finalcial_tracker = new app\controllers\FinancialTrackerController();
 $assets = $finalcial_tracker->getAllAssets();
 ?>
 
-<form action="<?php echo $router->route('add-item'); ?>" method="post">
+<form action="<?php echo $router->route('add-item'); ?>" method="post" data-slot="main-form">
   <h2>Assets</h2>
   <input type="hidden" name="type" value="asset">
-  <div class="js-form-repeater-fields">
+  <div data-slot="repeater-fields">
     <?php if (!empty($assets)) : ?>
       <?php foreach ($assets as $key => $item) : ?>
         <div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">
