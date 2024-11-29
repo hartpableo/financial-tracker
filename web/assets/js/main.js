@@ -22,7 +22,7 @@
 
   // Function to count items dynamically
   function getItemsCount(container) {
-    return container.querySelectorAll('[data-slot="field-wrapper"]').length;
+    return container.querySelectorAll('[data-slot="field-wrapper"]').length ?? 0;
   }
 
   // Append new input component
@@ -58,8 +58,9 @@
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
-        if (node.nodeType === Node.ELEMENT_NODE && node.querySelector('.js-remove-item')) {
-          node.querySelector('.js-remove-item').addEventListener('click', (e) => {
+        const removeItemButton = node.querySelector('.js-remove-item');
+        if (node.nodeType === Node.ELEMENT_NODE && removeItemButton) {
+          removeItemButton.addEventListener('click', (e) => {
             e.target.closest('[data-slot="field-wrapper"]').remove();
           });
         }

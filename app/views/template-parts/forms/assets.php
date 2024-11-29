@@ -34,7 +34,6 @@ $assets = $finalcial_tracker->getAllAssets();
           class="form-control"
           id="asset-item-1"
           name="assets[1][title]"
-          placeholder="Asset 1"
           data-item="1"
         >
         <input aria-label="Amount" type="text" placeholder="Amount" name="assets[1][amount]">

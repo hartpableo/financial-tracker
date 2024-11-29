@@ -26,20 +26,19 @@ $liabilities = $finalcial_tracker->getAllLiabilities();
           <button type="button" aria-label="Remove item <?php echo $key; ?>" class="js-remove-item fw-bold text-danger">X</button>
         </div>
       <?php endforeach; ?>
-    <?php else : ?>
-      <div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">
-        <input
-          type="text"
-          aria-label="Liability Item 1"
-          class="form-control"
-          id="liability-1"
-          name="liabilities[1][title]"
-          placeholder="Liability 1"
-          data-item="1"
-        >
-        <input aria-label="Amount" type="text" placeholder="Amount" name="liabilities[1][amount]">
-        <button type="button" aria-label="Remove item 1" class="fw-bold text-danger">X</button>
-      </div>
+<!--    --><?php //else : ?>
+<!--      <div class="mb-3 d-flex justify-content-start align-items-stretch" data-slot="field-wrapper">-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          aria-label="Liability Item 1"-->
+<!--          class="form-control"-->
+<!--          id="liability-1"-->
+<!--          name="liabilities[1][title]"-->
+<!--          data-item="1"-->
+<!--        >-->
+<!--        <input aria-label="Amount" type="text" placeholder="Amount" name="liabilities[1][amount]">-->
+<!--        <button type="button" aria-label="Remove item 1" class="fw-bold text-danger">X</button>-->
+<!--      </div>-->
     <?php endif; ?>
   </div>
   <div class="mb-3">
