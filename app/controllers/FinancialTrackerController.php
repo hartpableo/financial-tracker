@@ -20,14 +20,12 @@ class FinancialTrackerController
   {
     $assets = $_POST['assets'] ?? [];
     $liabilities = $_POST['liabilities'] ?? [];
-    $item_type = $_POST['type'];
-    $items = $item_type === 'asset' ? $assets : $liabilities;
-    $existingitemsOfCurrentType = $this->getAllItems($item_type);
+    $items = array_merge($assets, $liabilities);
 
     if (!empty($items)) {
       // Reset list of items
-      if (!empty($existingitemsOfCurrentType)) {
-        $this->db->query('DELETE FROM financial_items WHERE type = :type', ['type' => $item_type]);
+      if (!empty($this->getAllItems())) {
+        $this->db->query('DELETE FROM financial_items');
       }
 
       foreach ($items as $item) {
@@ -35,10 +33,11 @@ class FinancialTrackerController
         $amount = (!empty($item['amount']) && is_numeric($item['amount'])) ? (int)$item['amount'] : 0;
 
         if (!empty($title) && !empty($amount)) {
+          $type = in_array($item, $assets) ? 'asset' : 'liability';
           $this->db->query('INSERT INTO financial_items (title, amount, type) VALUES (:title, :amount, :type)', [
             'title' => $title,
             'amount' => $amount,
-            'type' => $item_type
+            'type' => $type
           ]);
         }
       }

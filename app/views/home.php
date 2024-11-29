@@ -27,14 +27,14 @@ $helper->templatePart('header', ['title' => $args['title']]);
             </div>
         </div>
 
-        <div class="row">
+        <form action="<?php echo $router->route('add-item'); ?>" class="row w-100" method="post">
             <div class="col-12 col-md-6">
-              <?php $helper->templatePart('forms/assets'); ?>
+              <?php $helper->templatePart('assets'); ?>
             </div>
             <div class="col-12 col-md-6">
-              <?php $helper->templatePart('forms/liabilities'); ?>
+              <?php $helper->templatePart('liabilities'); ?>
             </div>
-        </div>
+        </form>
     </div>
 
 <?php
