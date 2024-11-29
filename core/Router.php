@@ -6,11 +6,13 @@ class Router
 {
   private array $routes = [
     '/' => [
+      'handle' => 'home',
       'controller' => 'HomeController',
       'method' => 'index',
       'request' => 'GET'
     ],
     '/add-item' => [
+      'handle' => 'add-item',
       'controller' => 'FinancialTrackerController',
       'method' => 'addItem',
       'request' => 'POST'
@@ -36,11 +38,13 @@ class Router
     $controller->$method();
   }
 
-  public function route(string $path)
+  public function route(string $path): string
   {
-    if (array_key_exists($path, $this->routes)) {
-      return $path;
+    foreach ($this->routes as $index => $route) {
+      if ($route['handle'] === $path) {
+        return $index;
+      }
     }
-    throw new \Exception('Route not found');
+    return '';
   }
 }

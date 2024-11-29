@@ -1,5 +1,6 @@
 <?php
 
+// Dump for debugging
 function dump($data, $die = false): void
 {
   echo '<pre>';
@@ -8,4 +9,11 @@ function dump($data, $die = false): void
   if ($die) {
     die();
   }
+}
+
+// Redirect to a specific URL path
+function redirect($url): void
+{
+  header('Location: ' . $url);
+  exit;
 }

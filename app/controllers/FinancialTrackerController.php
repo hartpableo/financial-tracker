@@ -28,7 +28,7 @@ class FinancialTrackerController
         $this->db->query('DELETE FROM financial_items WHERE id = :id', ['id' => $item['id']]);
       }
 
-      foreach ($assets as $key => $asset) {
+      foreach ($assets as $asset) {
         $title = $asset['title'];
         $amount = (!empty($asset['amount']) && is_int($asset['amount'])) ? $asset['amount'] : 0;
 
