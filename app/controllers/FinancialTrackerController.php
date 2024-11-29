@@ -65,4 +65,47 @@ class FinancialTrackerController
   {
     return $this->getAllItems('liability');
   }
+
+  private function getTotalAssets(): int
+  {
+    $assets = $this->getAllAssets();
+    $total = 0;
+    foreach ($assets as $asset) {
+      $total += $asset['amount'];
+    }
+    return $total;
+  }
+
+  private function getTotalLiabilities(): int
+  {
+    $liabilities = $this->getAllLiabilities();
+    $total = 0;
+    foreach ($liabilities as $liability) {
+      $total += $liability['amount'];
+    }
+    return $total;
+  }
+
+  public function getTotalMonthlyLiabilities(): int
+  {
+    $liabilities = $this->getAllLiabilities();
+    $total = 0;
+
+    if (!empty($liabilities)) {
+      foreach ($liabilities as $liability) {
+        $total += $liability['amount'];
+      }
+    }
+    return $total;
+  }
+
+  public function getTotalRemainingCash(): int
+  {
+    return $this->getTotalAssets() - $this->getTotalLiabilities();
+  }
+
+  public function getAvailableWeeklyBudget(): float
+  {
+    return $this->getTotalRemainingCash() / 4;
+  }
 }
